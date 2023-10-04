@@ -2,20 +2,49 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="
-		http://www.springframework.org/schema/beans
-    	http://www.springframework.org/schema/beans/spring-beans.xsd
-    	http://www.springframework.org/schema/context
-    	http://www.springframework.org/schema/context/spring-context.xsd
-    	http://www.springframework.org/schema/mvc
-        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans.xsd
+      http://www.springframework.org/schema/context
+      http://www.springframework.org/schema/context/spring-context.xsd
+      http://www.springframework.org/schema/mvc
+http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+    <context:property-placeholder location="classpath:musicPlayer.properties"/>
+    <context:property-placeholder location="classpath:persons.properties"/>
+    <context:component-scan base-package="uz.spring"/>
+
+
+    <bean id="beanMusic" class="uz.spring.RockMusic">
+    </bean>
+
+    <bean id="classicalMusic" class="uz.spring.ClassicalMusic">
+    </bean>
+
+    <bean id="musicPlayer" class="uz.spring.MusicPlayer">
+        <property name="music" ref="classicalMusic"/>
+        <property name="name" value="${musicPlayer.name}"/>
+        <property name="age" value="${musicPlayer.volume}"/>
+    </bean>
 
 
     <bean
-            id="testBean"
-            class="uz.spring.TestBean">
-        <constructor-arg value="Asadbek"/>
-
+            id="beanUser"
+            class="uz.spring.tasks.User">
+        <property name="name" value="Asadbek"/>
+        <property name="age" value="17"/>
     </bean>
+    <bean
+    id="coder"
+    class="uz.spring.homework.Coder">
+    </bean>
+    <bean
+            class="uz.spring.homework.Teacher"
+            id="teacher"/>
+
+<bean id="persons" class="uz.spring.homework.Persons">
+    <property name="teacher" ref="teacher"/>
+    <property name="coder" ref="coder"/>
+
+</bean>
+    <!--login -->
 
 </beans>
